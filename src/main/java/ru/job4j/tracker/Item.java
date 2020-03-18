@@ -25,4 +25,13 @@ public class Item {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Item() {
+        super();
+        System.out.println("load item");
+    }
+
+    public static void main(String[] args) {
+        Bug bug = new Bug();
+    }
 }
