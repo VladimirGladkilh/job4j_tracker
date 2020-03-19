@@ -83,4 +83,17 @@ public class Tracker {
         }
         return index > -1;
     }
+    public boolean delete(String id) {
+        int index = indexOf(id);
+        if (index > -1) {
+            int start = index + 1;
+            int size = position - index;
+            System.arraycopy(items, start, items, start - 1, size);
+            items[position - 1] = null;
+            position--;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
