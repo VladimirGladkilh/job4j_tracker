@@ -12,7 +12,7 @@ public class FindAll implements UserAction {
         if (find.length == 0) {
             System.out.println("Items not found");
         } else {
-            System.out.println("Find:");
+            //System.out.println("Find:");
             for (Item item: find) {
                 System.out.println(item.getId()+":" + item.getName());
             }
