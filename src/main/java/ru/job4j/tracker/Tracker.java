@@ -35,7 +35,7 @@ public class Tracker {
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
     public Item[] findAll() {
-        Item[] itemsWithoutNull = new Item[position];
+        /*Item[] itemsWithoutNull = new Item[position];
         int size = 0;
         for (int index = 0; index < position; index++) {
             if (items[index] != null) {
@@ -43,7 +43,8 @@ public class Tracker {
                 size++;
             }
         }
-        return Arrays.copyOf(itemsWithoutNull, size);
+        return Arrays.copyOf(itemsWithoutNull, size);*/
+        return Arrays.copyOf(items, position);
     }
     public Item[] findByName(String key) {
         Item[] itemsByName = new Item[position];
