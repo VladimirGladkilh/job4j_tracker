@@ -12,26 +12,15 @@ public class ValidateInputTest {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;
         System.setOut(new PrintStream(mem));
-        String[] data = {"q", "1", "qwww"};
-        ValidateInput input = new ValidateStubInput(data);
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[] {"one", "1"})
+        );
         input.askInt("Enter");
         assertThat(
                 mem.toString(),
-                is(String.format("Please enter validate data again.%n" ))
+                is(String.format("Please enter validate data again.%n"))
         );
         System.setOut(out);
-        System.out.println(mem.toString());
     }
 
-    @Test
-    public void whenMaxInput() {
-        ByteArrayOutputStream mem = new ByteArrayOutputStream();
-        PrintStream out = System.out;
-        System.setOut(new PrintStream(mem));
-        String[] data = {"11","0"};
-        ValidateInput input = new ValidateStubInput(data);
-        input.askInt("Select: ", 6);
-        assertThat(mem.toString(), is(String.format("Please select key from menu.%n")));
-        System.setOut(out);
-    }
 }
