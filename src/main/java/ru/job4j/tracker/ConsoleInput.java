@@ -25,4 +25,5 @@ public class ConsoleInput implements Input{
             throw new IllegalStateException(String.format("Out of about %s > [0, %s]", select, max));
         }
     }
+
 }
