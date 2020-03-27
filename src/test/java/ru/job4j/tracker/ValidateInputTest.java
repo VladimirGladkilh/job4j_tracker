@@ -27,6 +27,7 @@ public class ValidateInputTest {
     public void whenMaxInput() {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;
+        System.setOut(new PrintStream(mem));
         String[] data = {"11","0"};
         ValidateInput input = new ValidateStubInput(data);
         input.askInt("Select: ", 6);
