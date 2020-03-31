@@ -1,8 +1,6 @@
-package ru.job4j.prof.list;
+package ru.job4j.list;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import ru.job4j.list.ConvertMatrix2List;
 
 import java.util.Arrays;
 import java.util.List;
