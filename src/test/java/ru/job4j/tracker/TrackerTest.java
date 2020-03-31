@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.hamcrest.Matchers.is;
@@ -26,8 +27,8 @@ public class TrackerTest {
         tracker.add(new Item("test2"));
         tracker.add(new Item("test3"));
         tracker.add(new Item("test4"));
-        Item[] result = tracker.findAll();
-        assertThat(result.length, is(4));
+        ArrayList<Item> result = tracker.findAll();
+        assertThat(result.size(), is(4));
     }
 
     @Test
@@ -40,8 +41,8 @@ public class TrackerTest {
         tracker.add(new Item("test4"));
         tracker.add(new Item("test2"));
         tracker.add(new Item("test5"));
-        Item[] result = tracker.findByName("test2");
-        assertThat(result.length, is(2));
+        ArrayList<Item> result = tracker.findByName("test2");
+        assertThat(result.size(), is(2));
     }
     @Test
     public void whenReplace() {

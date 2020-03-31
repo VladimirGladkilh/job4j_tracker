@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 public class FindAll implements UserAction {
     @Override
     public String name() {
@@ -8,8 +10,8 @@ public class FindAll implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        Item[] find = tracker.findAll();
-        if (find.length == 0) {
+        ArrayList<Item> find = tracker.findAll();
+        if (find.size() == 0) {
             System.out.println("Items not found");
         } else {
             //System.out.println("Find:");
