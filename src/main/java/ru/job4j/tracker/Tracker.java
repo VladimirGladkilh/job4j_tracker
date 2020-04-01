@@ -3,18 +3,19 @@ package ru.job4j.tracker;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final ArrayList<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     /**
      * Указатель ячейки для новой заявки.
      */
-    private int position = 0;
+    //private int position = 0;
 
     /**
      * Метод реализующий добавление заявки в хранилище
@@ -23,8 +24,6 @@ public class Tracker {
     public Item add(Item item) {
         item.setId(generateId());
         this.items.add(item);
-        //this.items.set(position, item);
-        position++;
         return item;
     }
 
@@ -37,22 +36,12 @@ public class Tracker {
         Random rm = new Random();
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
-    public ArrayList<Item> findAll() {
-        /*Item[] itemsWithoutNull = new Item[position];
-        int size = 0;
-        for (int index = 0; index < position; index++) {
-            if (items[index] != null) {
-                itemsWithoutNull[size] = items[index];
-                size++;
-            }
-        }
-        return Arrays.copyOf(itemsWithoutNull, size);*/
-        //return Arrays.copyOf(items, position);
+    public List<Item> findAll() {
         return items;
     }
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> itemsByName = new ArrayList<>();
-        for (int index = 0; index < position; index++) {
+    public List<Item> findByName(String key) {
+        List<Item> itemsByName = new ArrayList<>();
+        for (int index = 0; index < items.size(); index++) {
             if (items.get(index) != null && items.get(index).getName().equals(key)) {
                 itemsByName.add(items.get(index));
             }
@@ -89,11 +78,6 @@ public class Tracker {
         int index = indexOf(id);
         if (index > -1) {
             items.remove(index);
-            /*int start = index + 1;
-            int size = position - index;
-            System.arraycopy(items, start, items, start - 1, size);
-            items[position - 1] = null;
-            position--;*/
             return true;
         } else {
             return false;

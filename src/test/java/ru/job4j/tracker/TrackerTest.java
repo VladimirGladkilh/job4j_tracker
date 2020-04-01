@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -27,7 +28,7 @@ public class TrackerTest {
         tracker.add(new Item("test2"));
         tracker.add(new Item("test3"));
         tracker.add(new Item("test4"));
-        ArrayList<Item> result = tracker.findAll();
+        List<Item> result = tracker.findAll();
         assertThat(result.size(), is(4));
     }
 
@@ -41,7 +42,7 @@ public class TrackerTest {
         tracker.add(new Item("test4"));
         tracker.add(new Item("test2"));
         tracker.add(new Item("test5"));
-        ArrayList<Item> result = tracker.findByName("test2");
+        List<Item> result = tracker.findByName("test2");
         assertThat(result.size(), is(2));
     }
     @Test
