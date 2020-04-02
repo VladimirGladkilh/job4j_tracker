@@ -17,5 +17,14 @@ public class JobSorter {
         System.out.println(jobs);
         Collections.sort(jobs, new SortByNameJob());
         System.out.println(jobs);
+
+        List<Job> jobs2 = Arrays.asList(
+                new Job("Fix bug", 1),
+                new Job("Fix bug", 4),
+                new Job("Fix bug", 2),
+                new Job("X task", 0)
+        );
+        Collections.sort(jobs2, new JobDescByName().thenComparing(new JobDescByPriority()));
+        System.out.println(jobs2);
     }
 }
