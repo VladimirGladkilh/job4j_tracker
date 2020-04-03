@@ -13,7 +13,7 @@ public class CountTest {
     }
     @Test(expected = IllegalArgumentException.class)
     public void when0to2then3() {
-        int rsl = Count.add(0, 3);
+        int rsl = Count.add(10, 3);
         assertThat(rsl, is(3));
     }
     @Test
