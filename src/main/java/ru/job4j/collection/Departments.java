@@ -14,16 +14,10 @@ public class Departments {
                 } else {
                     start += "/" + el;
                 }
-                    tmp.add(start);
+                tmp.add(start);
             }
         }
-
-        List<String> newDeps = new ArrayList<>();
-        for (String tmpStr: tmp
-             ) {
-            newDeps.add(tmpStr);
-        }
-        return new ArrayList<>(newDeps);
+        return new ArrayList<>(tmp);
     }
 
     public static void sortAsc(List<String> orgs) {
