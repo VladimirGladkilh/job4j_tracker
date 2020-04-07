@@ -15,6 +15,7 @@ public class RefMethod {
     }
 
     public static void cutOut(String value) {
+        final String stp="";
         if (value.length() > 10) {
             System.out.println(value.substring(0, 10) + "..");
         } else {
