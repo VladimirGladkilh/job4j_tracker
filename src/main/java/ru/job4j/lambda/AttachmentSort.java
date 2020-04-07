@@ -1,9 +1,8 @@
 package ru.job4j.lambda;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import ru.job4j.pojo.Student;
+
+import java.util.*;
 
 public class AttachmentSort {
     public static void main(String[] args) {
@@ -37,5 +36,6 @@ public class AttachmentSort {
         };
         attachments.sort(nameComparator);
         System.out.println(attachments);
+
     }
 }
