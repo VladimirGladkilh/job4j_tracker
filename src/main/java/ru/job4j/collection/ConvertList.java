@@ -1,5 +1,6 @@
 package ru.job4j.collection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConvertList {
@@ -12,5 +13,9 @@ public class ConvertList {
             }
         }
         return rsl;
+    }
+
+    public static void main(String[] args) {
+
     }
 }
