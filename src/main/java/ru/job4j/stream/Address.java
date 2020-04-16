@@ -45,8 +45,6 @@ public class Address implements Comparator{
         this.apartment = apartment;
     }
 
-
-
     @Override
     public int hashCode() {
         return Objects.hash(city, street, home, apartment);
