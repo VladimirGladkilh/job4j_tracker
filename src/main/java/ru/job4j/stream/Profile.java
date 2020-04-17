@@ -11,5 +11,7 @@ public class Profile {
         this.address = address;
     }
 
-
+    public Profile(Address address) {
+        this.address = address;
+    }
 }

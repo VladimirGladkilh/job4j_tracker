@@ -65,4 +65,11 @@ public class Address implements Comparator{
         return city.equals(address.getCity()) && street.equals(address.getStreet())
                 && home == address.getHome() && apartment == address.getApartment();
     }
+
+    public Address(String city, String street, int home, int apartment) {
+        this.city = city;
+        this.street = street;
+        this.home = home;
+        this.apartment = apartment;
+    }
 }

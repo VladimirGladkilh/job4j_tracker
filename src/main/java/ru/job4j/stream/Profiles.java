@@ -10,10 +10,7 @@ public class Profiles {
         Comparator<Profile> comparator =  new Comparator<Profile>() {
             @Override
             public int compare(Profile o1, Profile o2) {
-                int compare = o1.getAddress().compare(o1.getAddress(), o2.getAddress());//Integer.compare(o1.getAddress().hashCode(), o2.getAddress().hashCode());
-                if (compare == 0) {
-                    compare = Integer.compare(o1.getAddress().hashCode(), o2.getAddress().hashCode());//o1.getAddress().compare(o1.getAddress(), o2.getAddress());
-                }
+                int compare = o1.getAddress().compare(o1.getAddress(), o2.getAddress());
                 return compare;
             }
         };
