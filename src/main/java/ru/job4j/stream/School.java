@@ -1,9 +1,10 @@
 package ru.job4j.stream;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class School {
     public List<Student> collect(List<Student> students, Predicate<Student> predict) {
@@ -18,5 +19,16 @@ public class School {
                         student -> student)
         );
         return mapStudent;
+    }
+
+    public List<Student> levelOf(List<Student> students, int bound) {
+
+        List<Student> sortStudents = students.stream()
+                .flatMap(Stream :: ofNullable)
+                .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
+                .takeWhile(student -> student.getScore() >= bound)
+                .sorted((o1, o2) -> o1.getFamilia().compareTo(o2.getFamilia()))
+                .collect(Collectors.toList());
+        return sortStudents;
     }
 }

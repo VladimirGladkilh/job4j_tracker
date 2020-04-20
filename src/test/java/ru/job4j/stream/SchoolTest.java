@@ -70,4 +70,20 @@ public class SchoolTest {
         }
         assertThat(hashStudent.equals(validHash), is(true));
     }
+
+    @Test
+    public void TestLevelOf() {
+        List<Student> studentList = Arrays.asList(new Student(100, "Petrov")
+                , null
+                , new Student(70, "Sidorov")
+                , new Student(10, "Morozov")
+                , null
+                , new Student(46, "Sidorova"));
+        List<Student> hashStudent = new School().levelOf(studentList, 70);
+        List<Student> validList = Arrays.asList(studentList.get(0), studentList.get(2) );
+        assertThat(hashStudent.equals(validList), is(true));
+
+        hashStudent.forEach(student -> System.out.println(student != null ? student.getFamilia() +" " + student.getScore(): "---"));
+
+    }
 }
