@@ -5,7 +5,7 @@ import ru.job4j.lambda.Attachment;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Address implements Comparator{
+public class Address implements Comparable{
     private String city;
     private String street;
 
@@ -50,12 +50,12 @@ public class Address implements Comparator{
         return Objects.hash(city, street, home, apartment);
     }
 
-    @Override
+   /* @Override
     public int compare(Object o1, Object o2) {
         Address left = (Address) o1;
         Address rigth = (Address) o2;
         return left.getCity().compareTo(rigth.getCity());
-    }
+    }*/
 
     @Override
     public boolean equals(Object obj) {
@@ -71,5 +71,10 @@ public class Address implements Comparator{
         this.street = street;
         this.home = home;
         this.apartment = apartment;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.getCity().compareTo(((Address) o).getCity());
     }
 }

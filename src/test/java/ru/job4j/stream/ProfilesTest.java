@@ -17,7 +17,7 @@ public class ProfilesTest {
         Profile profile4 = new Profile(new Address("Abakan", "Zelenaya", 101, 20));
         List<Profile> listProfiles = Arrays.asList(profile1, profile2, profile3, profile4);
         List<Address> addresses = Profiles.collect(listProfiles);
-        assertThat(addresses.get(0).getCity() , is("Abokan"));
+        assertThat(addresses.get(0).getCity() , is("Abakan"));
     }
 
     @Test
