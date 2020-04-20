@@ -2,10 +2,7 @@ package ru.job4j.stream;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -63,10 +60,11 @@ public class SchoolTest {
                 , new Student(70, "Sidorov")
                 , new Student(10, "Morozov")
                 , new Student(46, "Sidorova"));
-        HashMap<String, Student> hashStudent = new School().collectToMap(studentList);
+        Map<String, Student> hashStudent = new School().collectToMap(studentList);
         //упорядочим список и соберем МАР для проверки "руками"
         studentList.sort((o1, o2) -> o1.getFamilia().compareTo(o2.getFamilia()));
-        HashMap<String, Student> validHash = new HashMap<String, Student>();
+
+        Map<String, Student> validHash = new HashMap<String, Student>();
         for (Student st: studentList) {
             validHash.put(st.getFamilia(), st);
         }
