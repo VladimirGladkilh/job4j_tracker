@@ -11,9 +11,7 @@ public class MatrixToList {
                 List.of(1, 2),
                 List.of(3, 4)
         );
-        /*System.out.println(
-                matrix.stream().flatMap(e -> e.stream()).collect(Collectors.toList())
-        );*/
+
 
         Integer[][] intMatrix = new Integer[3][3];
         for (int i = 0; i < 3; i ++) {
@@ -22,9 +20,13 @@ public class MatrixToList {
             }
         }
 
-        List<Integer> integerList = Stream.of(intMatrix).flatMap(integers -> Stream.of(integers))
-                .collect(Collectors.toList());
+        List<Integer> integerList = convert(intMatrix);
         System.out.println(integerList);
 
+    }
+    public static List<Integer> convert(Integer[][] intMatrix) {
+        List<Integer> integerList = Stream.of(intMatrix).flatMap(integers -> Stream.of(integers))
+                .collect(Collectors.toList());
+        return integerList;
     }
 }
