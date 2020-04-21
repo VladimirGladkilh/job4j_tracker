@@ -3,6 +3,8 @@ package ru.job4j.stream;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -20,7 +22,6 @@ public class SchoolTest {
 
         School school = new School();
         List<Student> tenA = school.collect(tenClass, student -> student.getScore() >= 70);
-        //tenA.forEach(System.out::println);
         assertThat(tenA.size(), is(3));
     }
     @Test
@@ -36,7 +37,7 @@ public class SchoolTest {
         School school = new School();
         List<Student> tenA = school.collect(tenClass, student ->
                 (student.getScore() >= 50 && student.getScore() < 70 ));
-        //tenA.forEach(System.out::println);
+
         assertThat(tenA.size(), is(2));
     }
     @Test
@@ -51,7 +52,7 @@ public class SchoolTest {
 
         School school = new School();
         List<Student> tenA = school.collect(tenClass, student -> student.getScore() <50);
-        //tenA.forEach(System.out::println);
+
         assertThat(tenA.size(), is(5));
     }
     @Test
@@ -63,9 +64,17 @@ public class SchoolTest {
         Map<String, Student> hashStudent = new School().collectToMap(studentList);
         //упорядочим список и соберем МАР для проверки "руками"
         studentList.sort((o1, o2) -> o1.getFamilia().compareTo(o2.getFamilia()));
+        //studentList.stream().collect(Collectors.toMap(Student::getFamilia, student -> student))
+        Map<String, Student> validHash = new HashMap<String, Student>(
+                Map.of(studentList.get(0).getFamilia(), studentList.get(0),
+                        studentList.get(1).getFamilia(), studentList.get(1),
+                        studentList.get(2).getFamilia(), studentList.get(2),
+                        studentList.get(3).getFamilia(), studentList.get(3)
+                )
+        );
 
-        Map<String, Student> validHash = new HashMap<String, Student>();
-        for (Student st: studentList) {
+
+    for (Student st: studentList) {
             validHash.put(st.getFamilia(), st);
         }
         assertThat(hashStudent.equals(validHash), is(true));
