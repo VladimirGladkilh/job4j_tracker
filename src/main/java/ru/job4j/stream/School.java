@@ -27,7 +27,6 @@ public class School {
                 .flatMap(Stream :: ofNullable)
                 .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
                 .takeWhile(student -> student.getScore() >= bound)
-                .sorted((o1, o2) -> o1.getFamilia().compareTo(o2.getFamilia()))
                 .collect(Collectors.toList());
         return sortStudents;
     }
