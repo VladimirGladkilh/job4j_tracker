@@ -12,8 +12,8 @@ public class School {
                 .collect(Collectors.toList());
         return sortStudents;
     }
-    public HashMap<String, Student> collectToMap(List<Student> students) {
-        HashMap mapStudent = (HashMap) students.stream().distinct().collect(
+    public Map<String, Student> collectToMap(List<Student> students) {
+        Map mapStudent = students.stream().distinct().collect(
                 Collectors.toMap(
                         student -> student.getFamilia(),
                         student -> student)
