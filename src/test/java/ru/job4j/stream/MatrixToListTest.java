@@ -11,6 +11,7 @@ public class MatrixToListTest {
     @Test
     public void Then3to3Test() {
         Integer[][] intMatrix = {{0, 0, 0}, {0, 1, 2}, {0, 2, 4}};
+
         List<Integer> integerList = MatrixToList.convert(intMatrix);
         List<Integer> validList = List.of(0, 0, 0, 0, 1, 2, 0, 2, 4);
         assertThat(integerList.equals(validList), is(true));
@@ -18,6 +19,7 @@ public class MatrixToListTest {
     @Test
     public void Then2to2Test() {
         Integer[][] intMatrix = {{1, 2}, {2, 4}};
+
         List<Integer> integerList = MatrixToList.convert(intMatrix);
         List<Integer> validList = List.of(1, 2, 2, 4);
         assertThat(integerList.equals(validList), is(true));
