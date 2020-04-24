@@ -28,7 +28,7 @@ public class School {
                 .flatMap(Stream :: ofNullable)
                 .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
                 .takeWhile(student -> student.getScore() >= bound)
-                .sorted()
+                .sorted() //сортировка по ФИО через реализацию в Student implements Comparable
                 .collect(Collectors.toList());
         return sortStudents;
     }
