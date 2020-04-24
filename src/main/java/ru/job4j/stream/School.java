@@ -1,6 +1,7 @@
 package ru.job4j.stream;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -13,10 +14,10 @@ public class School {
         return sortStudents;
     }
     public Map<String, Student> collectToMap(List<Student> students) {
-        Map mapStudent = students.stream().distinct().collect(
+        Map mapStudent = students.stream().collect(
                 Collectors.toMap(
                         student -> student.getFamilia(),
-                        student -> student)
+                        student -> student, BinaryOperator.maxBy((o1, o2) -> Integer.compare(o1.getScore(), o2.getScore())))
         );
         return mapStudent;
     }
@@ -27,6 +28,7 @@ public class School {
                 .flatMap(Stream :: ofNullable)
                 .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
                 .takeWhile(student -> student.getScore() >= bound)
+                .sorted()
                 .collect(Collectors.toList());
         return sortStudents;
     }

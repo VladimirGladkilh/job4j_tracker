@@ -60,23 +60,21 @@ public class SchoolTest {
         List<Student> studentList = Arrays.asList(new Student(100, "Petrov")
                 , new Student(70, "Sidorov")
                 , new Student(10, "Morozov")
-                , new Student(46, "Sidorova"));
+                , new Student(46, "Sidorova")
+                , new Student(99, "Sidorov"));
         Map<String, Student> hashStudent = new School().collectToMap(studentList);
         //упорядочим список и соберем МАР для проверки "руками"
-        studentList.sort((o1, o2) -> o1.getFamilia().compareTo(o2.getFamilia()));
+        studentList.sort((o1, o2) -> o1.compareTo(o2));
         //studentList.stream().collect(Collectors.toMap(Student::getFamilia, student -> student))
         Map<String, Student> validHash = new HashMap<String, Student>(
                 Map.of(studentList.get(0).getFamilia(), studentList.get(0),
                         studentList.get(1).getFamilia(), studentList.get(1),
-                        studentList.get(2).getFamilia(), studentList.get(2),
-                        studentList.get(3).getFamilia(), studentList.get(3)
+                        studentList.get(3).getFamilia(), studentList.get(3),
+                        studentList.get(4).getFamilia(), studentList.get(4)
                 )
         );
 
 
-    for (Student st: studentList) {
-            validHash.put(st.getFamilia(), st);
-        }
         assertThat(hashStudent.equals(validHash), is(true));
     }
 
