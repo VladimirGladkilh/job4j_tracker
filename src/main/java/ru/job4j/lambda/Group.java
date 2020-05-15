@@ -23,7 +23,7 @@ public class Group {
     }
     public static Map<String, Set<String>> sections(List<Student> students) {
 
-        Set<Holder> hs = new HashSet<Holder>();
+        /*Set<Holder> hs = new HashSet<Holder>();
         Map map = students.stream()
                 .flatMap(student -> {
                     student.getUnits().forEach((u)-> hs.add(new Holder(u, student.getName())) );
@@ -36,40 +36,47 @@ public class Group {
                                 (left, right) -> { left.addAll(right); return left; } // для агрегации.
                         )
                         )
-                );
-        return map;
-    }
-
-   /* public static void main(String[] args) {
-    List<Student> students = asList(new Student("Jon", Set.of("Box", "Footbal")),
-            new Student("Mike", Set.of("Swiming", "Hokkey", "Box")),
-            new Student("Bill", Set.of("Footbal", "Sambo")));
-        Set<Holder> hs = new HashSet<Holder>();
-        Map map = students.stream()
-                .flatMap(student -> {
-                    student.getUnits().forEach((u)-> hs.add(new Holder(u, student.getName())) );
-                    return hs.stream();}
+                );*/
+        Map map2 = students.stream()
+                .flatMap(student ->  student.getUnits().stream().map(s->new Holder(s, student.getName()))
                 )
                 .collect(Collectors.groupingBy(t->t.key,
                         Collector.of(
                                 HashSet::new, // аккумулятор.
-                                (set, el) -> set.add(el),// как добавлять данные.
+                                (set, el) -> set.add(el.value),// как добавлять данные.
                                 (left, right) -> { left.addAll(right); return left; } // для агрегации.
                         )
                         )
                 );
+        return map2;
+    }
 
-        Map<String, Set<String>> grouping = Group.sections(students);
-        Set<String> inBox = Set.of("Jon", "Mike");
-        for (String gr: grouping.keySet()
-             ) {
-            System.out.println(gr);
-            for (String val:grouping.get(gr)
-                 ) {
-                System.out.println(val);
-            }
+    /*public static void main(String[] args) {
+    List<Student> students = asList(new Student("Jon", Set.of("Box", "Footbal")),
+            new Student("Mike", Set.of("Swiming", "Hokkey", "Box")),
+            new Student("Bill", Set.of("Footbal", "Sambo")));
+        Set<Holder> hs = new HashSet<Holder>();
+
+        Map map = students.stream()
+                .flatMap(student -> {
+                            return student.getUnits().stream().map(s->new Holder(s, student.getName()));
+                        }
+                )
+                .collect(Collectors.groupingBy(t->t.key,
+                        Collector.of(
+                                HashSet::new, // аккумулятор.
+                                (set, el) -> set.add(el.value),// как добавлять данные.
+                                (left, right) -> { left.addAll(right); return left; } // для агрегации.
+                        )
+                        )
+                );
+        System.out.println(map);
+
+        Map<String, Set<String>> grouping = map;
+        Set<String> inBox = Set.of("Jon", "Bill");
+        if (grouping.get("Footbal").equals(inBox)) {
+            System.out.println("yes");
         }
-
     }*/
 
 
