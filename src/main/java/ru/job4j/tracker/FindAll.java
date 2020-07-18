@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FindAll implements UserAction {
@@ -10,8 +9,8 @@ public class FindAll implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
-        List<Item> find = tracker.findAll();
+    public boolean execute(Input input, Store memTracker) {
+        List<Item> find = memTracker.findAll();
         if (find.size() == 0) {
             System.out.println("Items not found");
         } else {

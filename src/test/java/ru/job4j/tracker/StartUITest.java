@@ -13,18 +13,18 @@ public class StartUITest {
     public void whenAddItem() {
         String[] answers = {"Fix PC"};
         Input input = new StubInput(answers);
-        Tracker tracker = new Tracker();
+        Store memTracker = new SqlTracker();
         CreateAction action = new CreateAction();
-        action.execute(input, tracker);
-        Item created = tracker.findAll().get(0);
+        action.execute(input, memTracker);
+        Item created = memTracker.findAll().get(0);
         Item expected = new Item("Fix PC");
         assertThat(created.getName(), is(expected.getName()));
     }
     @Test
     public void whenReplaceItem() {
-        Tracker tracker = new Tracker();
+        Store memTracker = new SqlTracker();
         Item item = new Item("new item");
-        tracker.add(item);
+        memTracker.add(item);
         String[] answers = {
                 item.getId(), // id сохраненной заявки в объект tracker.
                 "replaced item"
@@ -33,21 +33,21 @@ public class StartUITest {
         StubInput input = new StubInput(
                 answers
         );
-        action.execute(input, tracker);
-        Item replaced = tracker.findById(item.getId());
+        action.execute(input, memTracker);
+        Item replaced = memTracker.findById(item.getId());
         assertThat(replaced.getName(), is("replaced item"));
     }
     @Test
     public void  whenDeleteItem() {
-        Tracker tracker = new Tracker();
+        Store memTracker = new SqlTracker();
         Item item = new Item("new item");
-        tracker.add(item);
+        memTracker.add(item);
         DeleteItem action = new DeleteItem();
         StubInput input = new StubInput(
                 new String[] {item.getId()}
         );
-        action.execute(input, tracker);
-        Item replaced = tracker.findById(item.getId());
+        action.execute(input, memTracker);
+        Item replaced = memTracker.findById(item.getId());
         assertNull(replaced);
     }
     @Test
@@ -58,7 +58,7 @@ public class StartUITest {
         StubAction action = new StubAction();
         ArrayList<UserAction> userActions = new ArrayList<>();
         userActions.add(action);
-        new StartUI().init(input, new Tracker(), userActions );
+        new StartUI().init(input, new SqlTracker(), userActions );
         assertThat(action.isCall(), is(true));
     }
     @Test
@@ -72,7 +72,7 @@ public class StartUITest {
         StubAction action = new StubAction();
         ArrayList<UserAction> userActions = new ArrayList<>();
         userActions.add(action);
-        new StartUI().init(input, new Tracker(), userActions);
+        new StartUI().init(input, new SqlTracker(), userActions);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")
                 .add("0. Stub action")

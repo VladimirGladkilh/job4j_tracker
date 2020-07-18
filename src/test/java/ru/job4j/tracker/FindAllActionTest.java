@@ -16,11 +16,11 @@ public class FindAllActionTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
-        Tracker tracker = new Tracker();
+        Store memTracker = new SqlTracker();
         Item item = new Item("fix bug");
-        tracker.add(item);
+        memTracker.add(item);
         FindAll act = new FindAll();
-        act.execute(new StubInput(new String[] {}), tracker);
+        act.execute(new StubInput(new String[] {}), memTracker);
         String expect = new StringJoiner(System.lineSeparator(),"", System.lineSeparator())
                 .add(item.getId() + ":" + item.getName())
                 .toString();

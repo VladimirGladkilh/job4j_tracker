@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class Tracker {
+public class MemTracker {
     /**
      * Массив для хранение заявок.
      */

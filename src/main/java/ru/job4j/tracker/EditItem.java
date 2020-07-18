@@ -7,11 +7,11 @@ public class EditItem implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store memTracker) {
         String id = input.askStr("=== Enter Item ID ====");
         String newName = input.askStr("=== Enter New Item Name ====");
         Item item = new Item(newName);
-        if (tracker.replace(id, item)) {
+        if (memTracker.replace(id, item)) {
             System.out.println("OK. Item replaced. New item is "+ item.getId());
         } else {
             System.out.println("Error. May bee item with id="+ id + " not found");

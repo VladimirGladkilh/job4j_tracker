@@ -7,7 +7,7 @@ public class Close implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store memTracker) {
         return false;
     }
 }
