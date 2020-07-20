@@ -21,3 +21,8 @@ notifications:
 env:
   global:
     - CODECOV_TOKEN="9efd6dde-583a-44c0-9394-7c0b31ebdb82"
+services:
+  - postgresql
+
+before_install:
+  - psql -c 'create database tracker;' -U postgres
