@@ -2,27 +2,55 @@ package ru.job4j.tracker;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 public class StartUITest {
+
+    public Connection init() {
+        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("driver-class-name"));
+            return DriverManager.getConnection(
+                    config.getProperty("url"),
+                    config.getProperty("username"),
+                    config.getProperty("password")
+
+            );
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
     @Test
-    public void whenAddItem() {
+    public void createItem() throws SQLException {
+        SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()));
+        //tracker.init();
+        tracker.add(new Item("Some name"));
+        assertThat(tracker.findByName("Some name").size(), is(1));
+    }
+    @Test
+    public void whenAddItem() throws SQLException {
         String[] answers = {"Fix PC"};
         Input input = new StubInput(answers);
-        Store memTracker = new SqlTracker();
+        Store memTracker =new SqlTracker(ConnectionRollback.create(this.init()));
         CreateAction action = new CreateAction();
         action.execute(input, memTracker);
-        Item created = memTracker.findAll().get(0);
+        Item created = memTracker.findAll().get(memTracker.findAll().size() - 1);
         Item expected = new Item("Fix PC");
         assertThat(created.getName(), is(expected.getName()));
     }
     @Test
-    public void whenReplaceItem() {
-        Store memTracker = new SqlTracker();
+    public void whenReplaceItem() throws SQLException {
+        Store memTracker = new SqlTracker(ConnectionRollback.create(this.init()));
         Item item = new Item("new item");
         memTracker.add(item);
         String[] answers = {
@@ -38,8 +66,8 @@ public class StartUITest {
         assertThat(replaced.getName(), is("replaced item"));
     }
     @Test
-    public void  whenDeleteItem() {
-        Store memTracker = new SqlTracker();
+    public void  whenDeleteItem() throws SQLException {
+        Store memTracker = new SqlTracker(ConnectionRollback.create(this.init()));
         Item item = new Item("new item");
         memTracker.add(item);
         DeleteItem action = new DeleteItem();
@@ -51,18 +79,18 @@ public class StartUITest {
         assertNull(replaced);
     }
     @Test
-    public void whenExit() {
+    public void whenExit() throws SQLException {
         StubInput input = new StubInput(
                 new String[] {"0"}
         );
         StubAction action = new StubAction();
         ArrayList<UserAction> userActions = new ArrayList<>();
         userActions.add(action);
-        new StartUI().init(input, new SqlTracker(), userActions );
+        new StartUI().init(input, new SqlTracker(ConnectionRollback.create(this.init())), userActions );
         assertThat(action.isCall(), is(true));
     }
     @Test
-    public void whenPrtMenu() {
+    public void whenPrtMenu() throws SQLException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
@@ -72,7 +100,7 @@ public class StartUITest {
         StubAction action = new StubAction();
         ArrayList<UserAction> userActions = new ArrayList<>();
         userActions.add(action);
-        new StartUI().init(input, new SqlTracker(), userActions);
+        new StartUI().init(input, new SqlTracker(ConnectionRollback.create(this.init())), userActions);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")
                 .add("0. Stub action")
