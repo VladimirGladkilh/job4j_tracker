@@ -56,16 +56,11 @@ public class SqlTracker implements Store {
         try (PreparedStatement st = cn.prepareStatement("update items set name=? where id=?", Statement.RETURN_GENERATED_KEYS)){
             st.setString(1, item.getName());
             st.setInt(2, Integer.valueOf(id));
-            st.executeUpdate();
-            ResultSet rs = st.getGeneratedKeys();
-            if (rs.next()) {
+            int res = st.executeUpdate();
+            if (res > 0) {
                 item.setId(id);
-                rs.close();
-                return true;
-            } else {
-                rs.close();
-                return false;
             }
+            return res > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
