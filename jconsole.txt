@@ -1,0 +1,41 @@
+
+jconsole
+позволяет определить базовые параметры запущенной машины:
+Live threads: 16
+Peak: 16
+Daemon threads: 15
+Total threads started: 16
+Current classes loaded: 2 406
+Total classes loaded: 2 507
+Total classes unloaded:   101
+Установленный размер heap и параметры GC
+Current heap size: 4 144 kbytes
+Maximum heap size: 6 144 kbytes
+Committed memory: 6 144 kbytes
+Pending finalization: 0 objects
+Garbage collector: Name = 'G1 Young Generation', Collections = 19, Total time spent = 0,044 seconds
+Garbage collector: Name = 'G1 Old Generation', Collections = 4, Total time spent = 0,053 seconds
+В сводной информации так же есть данные об ОС и оперативной памяти
+Указываются параметры запуска виртуальной машины
+VM arguments: 
+-Xmx5m -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.3.3\lib\idea_rt.jar=57595:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.3.3\bin -Dfile.encoding=UTF-8
+Class path: 
+C:\projects\job4j_tracker\target\classes;
+C:\Users\Gladkih\.m2\repository\org\postgresql\postgresql\42.2.12\postgresql-42.2.12.jar
+Library path: 
+C:\Program Files\Java\jdk-14\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;
+C:\Windows;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;
+C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;
+C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Git\cmd;
+C:\Program Files\Java\jre1.8.0_251\bin;%M2_HOME%\bin;C:\Windows\system32;C:\Windows;
+C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;
+C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;
+C:\Program Files\JetBrains\IntelliJ IDEA 2019.2.4\bin;C:\Users\Gladkih\AppData\Local\GitHubDesktop\bin;C:\Program Files\Java\jre1.8.0_251\bin;
+C:\Tools\apache-maven-3.6.3\bin;;.
+
+Для выхода за пределы памяти заполняем таблицу большим числом элементов (3-4 тыс записей)ж
+Запускаем с максимальным объемом памяти в 4 мб. Приложение потребляет около 3,5 мб.
+Выбираем пункт меню 1 (вывод всех элементов), жмем Enter. При неспешной подаче команд в консоли наблюдаем кратковременные скачки в использовании памяти.
+Пик на графике - вывод данных пользователю, провал - уничтожение объектов/освобождение памяти/отработал GC
+Повторяем ввод команды с максимальной скоростью чтобы GC не успевал очистить память от выводимых значений.
+В итоге графики в консоли зависают. Пиковое значение чуть выше чем было при медленной работе
