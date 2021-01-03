@@ -1,6 +1,10 @@
 package ru.job4j.tracker;
 
+import org.hibernate.query.criteria.internal.expression.function.CurrentTimestampFunction;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Objects;
 
 @Entity
@@ -10,9 +14,33 @@ public class Item implements Comparable<Item> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private String description;
+    private Timestamp created;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp creatied) {
+        this.created = creatied;
+    }
 
     public Item(String name) {
         this.name = name;
+    }
+
+    public Item(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.created = new Timestamp(Calendar.getInstance().getTimeInMillis());
     }
 
     public Integer getId() {
