@@ -60,7 +60,7 @@ public class StartUITest {
         Item item = new Item("new item");
         memTracker.add(item);
         String[] answers = {
-                item.getId(), // id сохраненной заявки в объект tracker.
+                String.valueOf(item.getId()), // id сохраненной заявки в объект tracker.
                 "replaced item"
         };
         EditItem action = new EditItem();
@@ -78,7 +78,7 @@ public class StartUITest {
         memTracker.add(item);
         DeleteItem action = new DeleteItem();
         StubInput input = new StubInput(
-                new String[] {item.getId()}
+                new String[] {String.valueOf(item.getId())}
         );
         action.execute(input, memTracker);
         Item replaced = memTracker.findById(item.getId());
@@ -129,7 +129,7 @@ public class StartUITest {
 
         Input input = mock(Input.class);
         //when(input.askInt(any(String.class))).thenReturn(Integer.valueOf(item.getId()));
-        when(input.askStr(any(String.class))).thenReturn(item.getId());
+        when(input.askInt(any(String.class))).thenReturn(item.getId());
 
         action.execute(input, memTracker);
         Item replaced = memTracker.findById(item.getId());
@@ -146,7 +146,7 @@ public class StartUITest {
         FindByID action = new FindByID();
 
         Input input = mock(Input.class);
-        when(input.askStr(any(String.class))).thenReturn(item.getId());
+        when(input.askInt(any(String.class))).thenReturn(item.getId());
 
         action.execute(input, memTracker);
         Item replaced = memTracker.findById(item2.getId());

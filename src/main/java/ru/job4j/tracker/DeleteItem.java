@@ -8,7 +8,7 @@ public class DeleteItem implements UserAction {
 
     @Override
     public boolean execute(Input input, Store memTracker) {
-        String id = input.askStr("=== Enter Item ID ====");
+        Integer id = input.askInt("=== Enter Item ID ====");
         String result = memTracker.delete(id) ? "Item's deleted" : "Error delete. May bee item not found";
         System.out.println(result);
         return true;

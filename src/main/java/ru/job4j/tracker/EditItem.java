@@ -8,7 +8,7 @@ public class EditItem implements UserAction {
 
     @Override
     public boolean execute(Input input, Store memTracker) {
-        String id = input.askStr("=== Enter Item ID ====");
+        Integer id = input.askInt("=== Enter Item ID ====");
         String newName = input.askStr("=== Enter New Item Name ====");
         Item item = new Item(newName);
         if (memTracker.replace(id, item)) {
