@@ -12,10 +12,10 @@ public class HbmRun {
     public static void main(String[] args) {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
-        try {
-            SessionFactory sf = new MetadataSources(registry)
+        try (SessionFactory sf = new MetadataSources(registry)
                     .buildMetadata()
-                    .buildSessionFactory();
+                    .buildSessionFactory())
+            {
             Session session = sf.openSession();
             session.beginTransaction();
 
@@ -26,8 +26,6 @@ public class HbmRun {
             session.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            StandardServiceRegistryBuilder.destroy(registry);
         }
     }
 }

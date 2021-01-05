@@ -12,8 +12,8 @@ public class HibernateRun {
     public static void main(String[] args) {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
-        try {
-            SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+        try (SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory()){
+
             Item item = create(new Item("Learn Hibernate", "Add description"), sf);
             System.out.println(item);
             item.setName("Learn Hibernate 5.");
@@ -28,8 +28,6 @@ public class HibernateRun {
             }
         }  catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            StandardServiceRegistryBuilder.destroy(registry);
         }
     }
 
