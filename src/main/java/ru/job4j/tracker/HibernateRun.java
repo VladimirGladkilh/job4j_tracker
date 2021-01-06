@@ -32,47 +32,59 @@ public class HibernateRun {
     }
 
     public static Item create(Item item, SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.save(item);
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            session.save(item);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return item;
     }
 
     public static void update(Item item, SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.update(item);
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            session.update(item);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void delete(Integer id, SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        Item item = new Item(null);
-        item.setId(id);
-        session.delete(item);
-        session.getTransaction().commit();
-        session.close();
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            Item item = new Item(null);
+            item.setId(id);
+            session.delete(item);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static List<Item> findAll(SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        List result = session.createQuery("from ru.job4j.tracker.Item").list();
-        session.getTransaction().commit();
-        session.close();
+        List result = null;
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            result = session.createQuery("from ru.job4j.tracker.Item").list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 
     public static Item findById(Integer id, SessionFactory sf) {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        Item result = session.get(Item.class, id);
-        session.getTransaction().commit();
-        session.close();
+        Item result = null;
+        try (Session session = sf.openSession()) {
+            session.beginTransaction();
+            result = session.get(Item.class, id);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 }
